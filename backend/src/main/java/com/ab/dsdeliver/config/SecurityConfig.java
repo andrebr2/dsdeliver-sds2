@@ -27,7 +27,8 @@ public class SecurityConfig {
     }
 
 
-    @Bean
+    @SuppressWarnings("removal")
+	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf((csrf) -> csrf.disable());
@@ -36,6 +37,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((requests) -> requests
                 .anyRequest().permitAll());
+
+     // add this line to use H2 web console
+        http.headers().frameOptions().disable();
 
         return http.build();
     }
